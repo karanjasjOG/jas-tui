@@ -17,7 +17,7 @@ These instructions are pinned to **`v0.1.0`**. Always install from a tag, not `m
 Run these in order:
 
 ```sh
-git clone --recursive --branch v0.1.0 https://github.com/<your-github-user>/jas-tui.git ~/dotfiles/jas-tui
+git clone --recursive --branch v0.1.0 https://github.com/karanjasjOG/jas-tui.git ~/dotfiles/jas-tui
 cd ~/dotfiles/jas-tui
 ./bootstrap.sh --dry-run   # optional: see what would change
 ./bootstrap.sh
