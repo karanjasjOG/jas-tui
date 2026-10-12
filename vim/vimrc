@@ -1,0 +1,54 @@
+syntax on
+filetype plugin indent on
+
+set number relativenumber
+set hlsearch incsearch ignorecase smartcase
+set wildmenu
+
+set autoindent expandtab smarttab
+set tabstop=4 shiftwidth=4 softtabstop=4
+
+" Leader key = space (must be set before any <leader> mappings)
+let mapleader = " "
+
+" jk to leave insert mode
+inoremap jk <Esc>
+
+" Shorter wait for multi-key mappings
+set timeoutlen=400
+
+" Space+y: yank to system clipboard
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+
+" Space+p: paste from system clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+
+" --- Split windows (Ctrl-free) ---
+set splitright splitbelow
+
+" Space+h/j/k/l: move between splits
+nnoremap <leader>h <C-w>h
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>l <C-w>l
+
+" Space+w acts as Ctrl-w (all window commands)
+nnoremap <leader>w <C-w>
+
+" Create and close splits
+nnoremap <leader>v :vsplit<CR>
+nnoremap <leader>s :split<CR>
+nnoremap <leader>q :close<CR>
+
+" Space+arrows: resize splits
+nnoremap <leader><Up>    :resize +3<CR>
+nnoremap <leader><Down>  :resize -3<CR>
+nnoremap <leader><Left>  :vertical resize -3<CR>
+nnoremap <leader><Right> :vertical resize +3<CR>
+
+" Space+n: clear search highlights
+nnoremap <leader>n :nohlsearch<CR>

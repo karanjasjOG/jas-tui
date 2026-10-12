@@ -1,0 +1,49 @@
+name: Publish to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble site (files are copied verbatim, no Jekyll)
+        run: |
+          mkdir -p _site
+          cp README.md    _site/setup.md
+          cp README.md    _site/setup.txt
+          cp bootstrap.sh _site/bootstrap.sh
+          cp bootstrap.sh _site/bootstrap.txt
+          sed "s/__VERSION__/${GITHUB_REF_NAME}@${GITHUB_SHA::7}/" site/index.html > _site/index.html
+          # Optional custom domain: only published if CNAME is non-empty.
+          if [ -s CNAME ]; then cp CNAME _site/CNAME; fi
+          touch _site/.nojekyll
+          ls -la _site
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
